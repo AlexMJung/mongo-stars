@@ -40,3 +40,4 @@ Quick rundown of new syntax we will use to query our database using Mongoose.
 ### Mongoose Schema Functions
 
 * `pre`
+# mongo-stars
