@@ -4,7 +4,29 @@ var router = express.Router();
 var Person = require('../models/person.schema.js');
 
 router.get('/', function(req, res) {
-    res.send([{name: 'test', location: 'also test'}]);
+   Person.find({}, function(err, data){
+       if(err) {
+           console.log('find error: ', err);
+           res.sendStatus(500);
+       } else {
+        console.log('found data: ', data);        
+        res.send(data);
+       }
+   });
+});
+
+//begining of search
+router.get('/:search', function (req, res) {
+    var PersonSearch = req.params.search;
+    Person.find({name: PersonSearch}, function (err, data) {
+        if (err) {
+            console.log('find error: ', err);
+            res.sendStatus(500);
+        } else {
+            console.log('found data: ', data);
+            res.send(data);
+        }
+    });
 });
 
 router.post('/', function(req, res) {
@@ -27,5 +49,55 @@ router.post('/', function(req, res) {
     });
 });
 
+
+router.put('/:evilGoose', function (req, res) {
+    var personId = req.params.evilGoose;
+    console.log('new location', req.body);
+    Person.findByIdAndUpdate(
+        {_id: personId},
+        { $set:{location: req.body.location} },
+        function (err, data) {
+            if (err) {
+                console.log('update error: ', err);
+
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(201);
+            }
+        }
+    )
+});
+//add points start
+router.put('/:evilGoose/addPoints', function (req, res) {
+    var personId = req.params.evilGoose;
+    console.log('new location', req.body);
+    Person.findByIdAndUpdate(
+        { _id: personId },
+        { $set: { internetPts: req.body.internetPts } },
+        function (err, data) {
+            if (err) {
+                console.log('update error: ', err);
+
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(201);
+            }
+        }
+    )
+});
+//add points stop
+
+router.delete('/:id', function(req, res){
+    Person.findByIdAndRemove(
+        {_id:req.params.id},
+        function(err, data){
+            if (err) {
+             console.log('delete error is:', err);
+            }else{
+                res.sendStatus(201);
+            }
+        }
+    )
+})
 
 module.exports = router;

@@ -18,7 +18,7 @@ app.use('/person', person);
 
 /** MONGOOSE CONNECTION **/
 // required
-var databaseUrl = 'mongodb://localhost:27017/betelgeuse';
+var databaseUrl = 'mongodb://localhost:27017/demo824';
 mongoose.connect(databaseUrl, 
 {
     useMongoClient: true

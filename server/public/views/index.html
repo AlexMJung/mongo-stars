@@ -14,23 +14,49 @@
         <h1>Mongo All Stars!</h1>
         <div class="row">
             <div class="col-md-12">
-                {{vm}}
             <form>
                 <label for="name">Name: </label>
                 <input type="text" ng-model="vm.newPerson.name" id="name" placeholder="Name" />
                 <label for="location">Location: </label>
                 <input type="text" ng-model="vm.newPerson.location" id="location" placeholder="Location" />
+                <label for="dateOfBirth">Date Of Birth: </label>
+                <input type="date" ng-model="vm.newPerson.dateOfBirth" id="dateOfBirth" placeholder="Date Of Birth" />
                 <button class="btn btn-primary" ng-click="vm.addPerson()">Add Person</button>
             </form>
             </div>
         </div>
-
+        <div>
+            <form>
+                <label for="Search">Search: </label>
+                <input type="text" ng-model="vm.PersonSearch" id="search" placeholder="Search By Name"/>
+                <button class="btn btn-primary" ng-click="vm.searchPerson()">Search Person</button>
+            </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div ng-repeat="person in vm.theLostPeople.list" class="well col-md-3">
+                            <p>{{person.name}}</p>
+                            <p>{{person.location}}</p>
+                            <p>{{person.dateOfBirth}}</p>
+                            <p>{{person.internetPts}}</p>
+                            <input type="text" ng-model="person.candybar" />
+                            <button ng-click="vm.updatePerson(person)" class="btn btn-default">Update</button>
+                            <button ng-click="vm.addPoints(person)" class="btn btn-caution">Add Points</button>
+                            <button ng-click="vm.deletePerson(person._id)" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <h2>All People</h2>
         <div class="row">
           <div class="col-md-12">
               <div ng-repeat="person in vm.gottenPeople.list" class="well col-md-3">
                 <p>{{person.name}}</p>
                 <p>{{person.location}}</p>
-                <button ng-click="vm.updatePerson(person._id)" class="btn btn-default">Update</button>
+                <p>{{person.dateOfBirth}}</p>
+                <p>{{person.internetPts}}</p>
+                <input type="text" ng-model="person.candybar"/>
+                <button ng-click="vm.updatePerson(person)" class="btn btn-default">Update</button>
+                <button ng-click="vm.addPoints(person)" class= "btn btn-caution">Add Points</button>
                 <button ng-click="vm.deletePerson(person._id)" class="btn btn-danger">Delete</button>
               </div>
           </div>
